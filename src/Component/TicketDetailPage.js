@@ -66,8 +66,8 @@ export const TicketDetailPage = () => {
   return (
     <div className="submit-form-container">
       <div className="submit-form-card ticket_details">
-        <a href="http://localhost:3000" className="admin-link">Ticket Form</a> &nbsp;|&nbsp; 
-        <a href="http://localhost:3000/admin" className="admin-link">Ticket List</a>
+        <a href="/" className="admin-link">Ticket Form</a> &nbsp;|&nbsp; 
+        <a href="/admin" className="admin-link">Ticket List</a>
         <h2 className="text-uppercase">Ticket Detail</h2>
         <div className="row">
           <div className="ticket_data">
