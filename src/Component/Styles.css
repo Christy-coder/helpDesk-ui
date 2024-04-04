@@ -1,4 +1,7 @@
 
+body{
+  BackgroundColor: rgb(192, 213, 234);
+}
 .submit-form-container {
   display: flex;
   align-items: center;
