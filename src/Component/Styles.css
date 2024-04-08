@@ -1,6 +1,6 @@
 
 body{
-  BackgroundColor: rgb(192, 213, 234);
+  background-color: rgb(192, 213, 234);
 }
 .submit-form-container {
   display: flex;
@@ -16,7 +16,7 @@ body{
 
 form {
   padding-top: 20px;
-  width: 475px;
+  width: 100%; 
 }
 
 label {
@@ -26,7 +26,7 @@ label {
 
 input,
 textarea {
-  width: 100%;
+  width: 97%;
   padding: 12px;
   border-radius: 5px;
   border: 1px solid #ccc;
@@ -107,9 +107,21 @@ th {
   padding: 15px;
 }
 
+.ticket_list_outter {
+  overflow: auto;
+}
+
+.submit-form-card {
+  max-width: 750px;
+  width: 100%;
+}
+
 .ticket_details {
-  width: 500px;
+  width: 100%;
   font-size: 13px;
+  background: #FFF;
+  padding: 10px;
+  margin-top: 10px;
 }
 
 .row {
@@ -136,13 +148,10 @@ th {
 /* Media Query for smaller screens */
 @media screen and (max-width: 768px) {
   .submit-form-container {
-    flex-direction: column;
-    justify-content: center;
-    padding: 20px;
+    padding: 10px;
   }
 
-  .submit-form-card {
-    height: auto;
-    margin-bottom: 20px;
+  form {
+    width: 100%; /* Make form width 100% for smaller screens */
   }
 }

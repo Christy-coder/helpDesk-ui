@@ -1,10 +1,9 @@
 /** @format */
 
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import { TicketForm } from "./TicketForm";
+import { submitTicket, fetchTickets } from "../utils/ticketUtils";
 import "./Styles.css";
-
-//submit ticket form
 
 export const SubmitTicketForm = () => {
   const [formData, setFormData] = useState({
@@ -13,36 +12,37 @@ export const SubmitTicketForm = () => {
     description: "",
   });
 
-  const [tickets, setTickets] = useState([]);
+  const [, setTickets] = useState([]);
   const [submitMessage, setSubmitMessage] = useState("");
 
-  const fetchTickets = async () => {
-    try {
-      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/tickets`);
-      setTickets(response.data);
-    } catch (error) {
-      console.error("Error fetching tickets:", error);
-    }
-  };
-
   useEffect(() => {
-    fetchTickets();
+    const fetchData = async () => {
+      const { success, data, message } = await fetchTickets();
+      if (success) {
+        setTickets(data);
+      } else {
+        console.error(message);
+      }
+    };
+    fetchData();
   }, []);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // ticket refresh upon submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      await axios.post(`${process.env.REACT_APP_API_URL}/api/tickets`, formData);
-      setSubmitMessage("Ticket submitted successfully!");
+    const { success, message } = await submitTicket(formData);
+    setSubmitMessage(message);
+    if (success) {
       setFormData({ name: "", email: "", description: "" });
-      fetchTickets(); 
-    } catch (err) {
-      setSubmitMessage("Error submitting ticket! Try again.");
+      const { success: fetchSuccess, data, message: fetchMessage } = await fetchTickets();
+      if (fetchSuccess) {
+        setTickets(data);
+      } else {
+        console.error(fetchMessage);
+      }
     }
   };
 
@@ -51,47 +51,13 @@ export const SubmitTicketForm = () => {
       <div className="submit-form-card">
         <a href="/admin" className="admin-link">Ticket Admin</a>
         <h2 className="text-uppercase">Submit Support Ticket</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="fields">
-            <label>Full Name:</label>
-            <input
-              type="text"
-              name="name"
-              placeholder="Enter Full Name"
-              value={formData.name}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="fields">
-            <label>Email:</label>
-            <input
-              type="email"
-              name="email"
-              placeholder="Enter Email Address"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="fields">
-            <label>Description:</label>
-            <textarea
-              name="description"
-              value={formData.description}
-              placeholder="Provide Description Of Your Ticket"
-              onChange={handleChange}
-              required
-            ></textarea>
-          </div>
-          <button type="submit">Submit Ticket</button>
-          {submitMessage && (
-            <div className={`msg ${submitMessage.includes("successfully") ? "success" : "failed"}`}>
-              {submitMessage}
-            </div>
-          )}
-        </form>
+        <TicketForm 
+          formData={formData} 
+          handleChange={handleChange} 
+          handleSubmit={handleSubmit} 
+          submitMessage={submitMessage} 
+        />
       </div>
     </div>
   );
-}
+};
