@@ -32,7 +32,7 @@ export const TicketDetailPage = () => {
   };
 
   const handleResponse = async () => {
-    // alert("Would normally send email here!");
+    alert("Would normally send email here!");
     const { success, data, message } = await addResponse(ticketId, responseText);
     if (success) {
       setTicket(data);
