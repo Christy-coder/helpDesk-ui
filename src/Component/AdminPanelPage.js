@@ -21,7 +21,7 @@ export const AdminPanelPage = () => {
 
   return (
     <div className="submit-form-container">
-      <div className="submit-form-card">
+      <div className="submit-form-card w-100">
         <a href="/" className="admin-link">Ticket Form</a>
         <h2 className="text-uppercase">Admin Panel - Ticket List</h2>
         <TicketList tickets={tickets} />
