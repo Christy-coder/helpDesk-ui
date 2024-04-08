@@ -66,7 +66,7 @@ button:hover {
 }
 
 .msg {
-  padding: 10px 49px;
+  padding: 10px 20px;
 }
 
 .msg.success {
@@ -109,6 +109,7 @@ th {
 
 .ticket_list_outter {
   overflow: auto;
+  max-height: 90vh;
 }
 
 .submit-form-card {
